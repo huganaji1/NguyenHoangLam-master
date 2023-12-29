@@ -109,6 +109,16 @@ namespace NguyenHoangLam
             }
 
         }
+        public static void CapNhatViTri()
+        {
+            Console.WriteLine("Chọn Vị Trí Muốn Cập Nhật");
+            int n = int.Parse(Console.ReadLine());
+           
+
+ 
+
+
+        }
 
     
         public static void timkiemvieccanlam()
