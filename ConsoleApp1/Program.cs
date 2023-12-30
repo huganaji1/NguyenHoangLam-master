@@ -42,6 +42,9 @@ namespace NguyenHoangLam
                     case 2:
                         XoaDanhSach();
                         break;
+                    case 3:
+                        Capnhaptrangthai();
+                        break;
                     case 4:
                         timkiemvieccanlam();
                         break;
@@ -109,18 +112,47 @@ namespace NguyenHoangLam
             }
 
         }
-        public static void CapNhatViTri()
+        public static void Capnhaptrangthai()
         {
-            Console.WriteLine("Chọn Vị Trí Muốn Cập Nhật");
-            int n = int.Parse(Console.ReadLine());
-           
+            try
+            {
+                Console.WriteLine("Nhập công việc");
+                string vieccanlam = Console.ReadLine();
+                Console.WriteLine("-----------------------------");
+                
+                var item = listvieccanlam.FirstOrDefault(c => c.vieccanlam.ToLower().Contains(vieccanlam.ToLower()));
+                Console.WriteLine("Trước khi Sửa");
+                Console.WriteLine("Việc Cần Làm : {0}", item.vieccanlam);
+                Console.WriteLine("Độ Ưu Tiên : {0}", item.thutuuutien);
+                Console.WriteLine("Mô Tả Công Việc: {0}", item.motacongviec);
+                Console.WriteLine("Trạng Thái Công Việc : {0}\n", item.trangthai);
+                
+                Console.WriteLine("CẬP NHẬT TRẠNG THÁI MỚI:");
+                String trangthaimoi = Console.ReadLine();
 
- 
-
+                if (item != null)
+                {
+                    item.trangthai = trangthaimoi;
+                    Console.WriteLine("Cập nhập thành công");
+                }
+                else
+                {
+                    Console.WriteLine("Không tìm thấy công việc");
+                }
+                Console.WriteLine("Sau khi sửa");
+                Console.WriteLine("Việc Cần Làm : {0}", item.vieccanlam);
+                Console.WriteLine("Độ Ưu Tiên : {0}", item.thutuuutien);
+                Console.WriteLine("Mô Tả Công Việc: {0}", item.motacongviec);
+                Console.WriteLine("Trạng Thái Công Việc : {0}\n", item.trangthai = trangthaimoi);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Lỗi ! PHẢI NHẬP CHỮ");
+            }
 
         }
 
-    
+
         public static void timkiemvieccanlam()
         {
             Console.WriteLine("Nhập Tên việc cần làm");
