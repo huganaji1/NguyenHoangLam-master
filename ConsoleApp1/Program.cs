@@ -13,13 +13,15 @@ namespace NguyenHoangLam
         public int thutuuutien { get; set; }
         public string motacongviec { get; set; }
         public string trangthai { get; set; }
+        public int vitri { get; set; }
         public ViecCanLam() { }
-        public ViecCanLam(string vieccl, int thutu, string mota, string status)
+        public ViecCanLam(string vieccl, int thutu, string mota, string status, int vtri)
         {
             vieccanlam = vieccl;
             thutuuutien = thutu;
             motacongviec = mota;
             trangthai = status;
+            vitri = vtri;
         }
 
     }
@@ -82,6 +84,17 @@ namespace NguyenHoangLam
         {
             try
             {
+                int vitri = 0;
+                foreach (var item in listvieccanlam)
+                {
+
+                    int idviec = listvieccanlam.Count();
+                    if(idviec > 0)
+                    {
+                        vitri = item.vitri + 1;
+                    }
+                    
+                }
                 Console.WriteLine("Nhập việc cần làm");
                 string vieccl = Console.ReadLine();
                 Console.WriteLine("Độ ưu tiên công việc");
@@ -90,8 +103,7 @@ namespace NguyenHoangLam
                 string mota = Console.ReadLine();
                 Console.WriteLine("Trạng Thái Công Việc");
                 string trangthai = Console.ReadLine();
-
-                ViecCanLam vl = new ViecCanLam(vieccl, uutien, mota, trangthai);
+                ViecCanLam vl = new ViecCanLam(vieccl, uutien, mota, trangthai, vitri);
                 listvieccanlam.Add(vl);
             }
             catch (Exception)
@@ -100,36 +112,39 @@ namespace NguyenHoangLam
             }
         }
         public static void XoaDanhSach()
-        {try
+        {   
+         Console.WriteLine("xóa thông tin việc làm dựa vào vị trí nhập");
+         int vitri = int.Parse(Console.ReadLine());
+            foreach (var item in listvieccanlam)
             {
-                Console.WriteLine("xóa thông tin việc làm dựa vào vị trí nhập");
-                int n = int.Parse(Console.ReadLine());
-                listvieccanlam.RemoveAt(n);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Lỗi ! PHẢI NHẬP SỐ");
-            }
 
+                
+                if (vitri == item.vitri)
+                {
+                    listvieccanlam.RemoveAll(c => c.vitri == vitri);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Không Tồn Tại");
+                }
+            }
         }
         public static void Capnhaptrangthai()
         {
             try
             {
-                Console.WriteLine("Nhập công việc");
-                string vieccanlam = Console.ReadLine();
+                Console.WriteLine("Nhập vị trí công việc");
+                int vitricongviec = int.Parse(Console.ReadLine());
                 Console.WriteLine("-----------------------------");
-                
-                var item = listvieccanlam.FirstOrDefault(c => c.vieccanlam.ToLower().Contains(vieccanlam.ToLower()));
-                Console.WriteLine("Trước khi Sửa");
+                var item = listvieccanlam.FirstOrDefault(c => c.vitri == vitricongviec); 
+                Console.WriteLine("Trước khi Sửa");// cho de biet no chay nhu nao
                 Console.WriteLine("Việc Cần Làm : {0}", item.vieccanlam);
                 Console.WriteLine("Độ Ưu Tiên : {0}", item.thutuuutien);
                 Console.WriteLine("Mô Tả Công Việc: {0}", item.motacongviec);
                 Console.WriteLine("Trạng Thái Công Việc : {0}\n", item.trangthai);
-                
                 Console.WriteLine("CẬP NHẬT TRẠNG THÁI MỚI:");
                 String trangthaimoi = Console.ReadLine();
-
                 if (item != null)
                 {
                     item.trangthai = trangthaimoi;
@@ -151,8 +166,6 @@ namespace NguyenHoangLam
             }
 
         }
-
-
         public static void timkiemvieccanlam()
         {
             Console.WriteLine("Nhập Tên việc cần làm");
@@ -187,6 +200,7 @@ namespace NguyenHoangLam
             Console.WriteLine("Danh Sách Việc Làm");
             foreach (var item in listvieccanlam)
             {
+                Console.WriteLine("Vitri : {0}", item.vitri);
                 Console.WriteLine("Việc Cần Làm : {0}", item.vieccanlam);
                 Console.WriteLine("Độ Ưu Tiên : {0}", item.thutuuutien);
                 Console.WriteLine("Mô Tả Công Việc: {0}", item.motacongviec);
